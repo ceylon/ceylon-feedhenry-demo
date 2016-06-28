@@ -2,6 +2,9 @@ import express { ExpressRouter=Router }
 import cors { cors }
 import body.parser { bodyParser }
 
+String titlecase(String s) =>
+  " ".join { for (w in s.split()) w.initial(1).uppercased+w[1...] };
+
 shared Router helloRoute() {
   Router hello;
   dynamic {
@@ -19,7 +22,7 @@ shared Router helloRoute() {
       print("In hello route GET / req.query=``query``");
       String world = req.query?.hello else "World";
       res.json(dynamic[
-                 msg="Hello ``world``";
+                 msg="Hello, ``titlecase(world)``!";
                  ts=system.milliseconds;
       ]);
     }
@@ -34,7 +37,7 @@ shared Router helloRoute() {
       print("In hello route POST / req.body=``body``");
       String world = req.body?.hello else "World";
       res.json(dynamic[
-                 msg="Hello ``world``";
+                 msg="Hello, ``titlecase(world)``!";
                  ts=system.milliseconds;
       ]);
     }
