@@ -1,13 +1,13 @@
 shared dynamic ExpressApp {
-  shared formal void use(dynamic path, dynamic handler=null);
+  shared formal void use(Anything path, Anything handler=null);
   shared formal void listen(Integer port, String host, Anything() handler);
 }
 
 shared dynamic MbaasExpress {
   shared formal dynamic sys(dynamic endpoints);
-  shared formal dynamic mbaas;
-  shared formal dynamic fhmiddleware();
-  shared formal dynamic errorHandler();
+  shared formal Anything mbaas;
+  shared formal Anything fhmiddleware();
+  shared formal Anything errorHandler();
 }
 
 shared dynamic Router {
