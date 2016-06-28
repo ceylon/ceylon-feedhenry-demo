@@ -29,7 +29,8 @@ module.exports = function(grunt) {
           nodeArgs: [],
           delayTime: 1,
           env: {
-            PORT: 3000
+            PORT: 3000,
+            NODE_PATH:'node_modules:'+process.env.CEYLON_HOME+'/repo'
           },
           cwd: __dirname
         }
@@ -40,6 +41,20 @@ module.exports = function(grunt) {
       debug: ['node-inspector', 'shell:debug', 'open:debug'],
       options: {
         logConcurrentOutput: true
+      }
+    },
+    run: {
+      options: {
+        failOnError:true,
+        wait:true
+      },
+      compilejs: {
+        cmd: process.env.CEYLON_HOME+'/bin/ceylon',
+        args:[ 'compile-js', '--rep=npm:', '--out=node_modules', 'fh.demo.hello' ]
+      },
+      prueba: {
+        cmd:'/Users/ezamudio/bin/binario',
+		args:['65535']
       }
     },
     env: {
@@ -144,6 +159,7 @@ module.exports = function(grunt) {
     scope: 'devDependencies'
   });
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-run');
 
   // Testing tasks
   grunt.registerTask('test', ['jshint', 'shell:unit', 'shell:accept']);
@@ -160,5 +176,10 @@ module.exports = function(grunt) {
 
   grunt.registerTask('serve', ['env:local', 'concurrent:serve']);
   grunt.registerTask('debug', ['env:local', 'concurrent:debug']);
-  grunt.registerTask('default', ['serve']);
+  grunt.registerTask('compile', 'Compile the Ceylon code to JS', ['run:compilejs'],function(){
+    if (!process.env.CEYLON_HOME) {
+      console.log("Cannot find environment variable CEYLON_HOME.");
+    }
+  });
+  grunt.registerTask('default', ['compile', 'serve']);
 };
