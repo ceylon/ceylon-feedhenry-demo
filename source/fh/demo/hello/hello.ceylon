@@ -1,12 +1,12 @@
-import express { ERouter=Router }
+import express { ExpressRouter=Router }
 import cors { cors }
 import body.parser { bodyParser }
 
 shared Router helloRoute() {
   Router hello;
   dynamic {
-    dynamic shit = ERouter();
-    hello = shit;
+    dynamic holder = ExpressRouter();
+    hello = holder;
     hello.use(cors());
     hello.use(bodyParser());
   }
@@ -17,9 +17,13 @@ shared Router helloRoute() {
 
     // see http://expressjs.com/4x/api.html#res.json
     dynamic {
-      print("In hello route GET / req.query=``req.query``");
+      dynamic query=req.query else "<undefined>";
+      print("In hello route GET / req.query=``query``");
       String world = req.query?.hello else "World";
-      res.json(dynamic[msg="Hello ``world``";]);
+      res.json(dynamic[
+                 msg="Hello ``world``";
+                 ts=system.milliseconds;
+      ]);
     }
   });
 
@@ -28,10 +32,14 @@ shared Router helloRoute() {
   // See: https://github.com/senchalabs/connect#middleware for a list of Express 4 middleware
   hello.post("/", (req, res) {
     dynamic {
-      print("In hello route POST / req.body=``req.body``");
+      dynamic body=req.body else "<undefined>";
+      print("In hello route POST / req.body=``body``");
       String world = req.body?.hello else "World";
       //var world = req.body && req.body.hello ? req.body.hello : 'World';
-      res.json(dynamic[msg="Hello ``world``";]);
+      res.json(dynamic[
+                 msg="Hello ``world``";
+                 ts=system.milliseconds;
+      ]);
     }
   });
   return hello;
