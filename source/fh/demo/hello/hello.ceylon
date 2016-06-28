@@ -13,8 +13,6 @@ shared Router helloRoute() {
 
   // GET REST endpoint - query params may or may not be populated
   hello.get("/", (req, res) {
-    //var world = req.query && req.query.hello ? req.query.hello : 'World';
-
     // see http://expressjs.com/4x/api.html#res.json
     dynamic {
       dynamic query=req.query else "<undefined>";
@@ -35,7 +33,6 @@ shared Router helloRoute() {
       dynamic body=req.body else "<undefined>";
       print("In hello route POST / req.body=``body``");
       String world = req.body?.hello else "World";
-      //var world = req.body && req.body.hello ? req.body.hello : 'World';
       res.json(dynamic[
                  msg="Hello ``world``";
                  ts=system.milliseconds;
