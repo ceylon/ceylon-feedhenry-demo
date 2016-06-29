@@ -1,0 +1,1 @@
+{"files":["fh.demo.hello-0.1.js","fh.demo.hello-0.1.js.sha1","fh.demo.hello-0.1-model.js","fh.demo.hello-0.1-model.js.sha1","fh.demo.hello-0.1.src","fh.demo.hello-0.1.src.sha1"],"dependencies":{"ceylon.language":"1.2.3","body-parser":"1.0.2","cors":"2.2.0","express":"4.0.0","fh-mbaas-api":"5.12.0"},"name":"fh.demo.hello","version":"0.1"}
