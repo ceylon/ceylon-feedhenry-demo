@@ -30,7 +30,7 @@ module.exports = function(grunt) {
           delayTime: 1,
           env: {
             PORT: 3000,
-            NODE_PATH:'node_modules:'+process.env.CEYLON_HOME+'/repo'
+            NODE_PATH:'node_modules:ceylon_modules:'+process.env.CEYLON_HOME+'/repo'
           },
           cwd: __dirname
         }
@@ -50,7 +50,7 @@ module.exports = function(grunt) {
       },
       compilejs: {
         cmd: process.env.CEYLON_HOME+'/bin/ceylon',
-        args:[ 'compile-js', '--rep=npm:', '--out=node_modules', 'fh.demo.hello' ]
+        args:[ 'compile-js', '--rep=npm:', '--out=ceylon_modules', 'fh.demo.hello' ]
       },
       prueba: {
         cmd:'/Users/ezamudio/bin/binario',
@@ -181,5 +181,5 @@ module.exports = function(grunt) {
       console.log("Cannot find environment variable CEYLON_HOME.");
     }
   });
-  grunt.registerTask('default', ['compile', 'serve']);
+  grunt.registerTask('default', ['serve']);
 };
