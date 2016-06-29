@@ -3,7 +3,10 @@ import cors { cors }
 import body.parser { bodyParser }
 
 String titlecase(String s) =>
-  " ".join { for (w in s.split()) w.initial(1).uppercased+w[1...] };
+  sanitize(" ".join { for (w in s.split()) w.initial(1).uppercased+w[1...] });
+
+String sanitize(String s) =>
+  s.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;");
 
 shared Router helloRoute() {
   Router hello;
@@ -18,9 +21,8 @@ shared Router helloRoute() {
   hello.get("/", (req, res) {
     // see http://expressjs.com/4x/api.html#res.json
     dynamic {
-      dynamic query=req.query else "<undefined>";
-      print("In hello route GET / req.query=``query``");
       String world = req.query?.hello else "World";
+      print("In hello route GET / ``world``");
       res.json(dynamic[
                  msg="Hello, ``titlecase(world)``!";
                  ts=system.milliseconds;
@@ -33,9 +35,8 @@ shared Router helloRoute() {
   // See: https://github.com/senchalabs/connect#middleware for a list of Express 4 middleware
   hello.post("/", (req, res) {
     dynamic {
-      dynamic body=req.body else "<undefined>";
-      print("In hello route POST / req.body=``body``");
       String world = req.body?.hello else "World";
+      print("In hello route POST / ``world``");
       res.json(dynamic[
                  msg="Hello, ``titlecase(world)``!";
                  ts=system.milliseconds;
