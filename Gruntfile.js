@@ -30,7 +30,7 @@ module.exports = function(grunt) {
           delayTime: 1,
           env: {
             PORT: 3000,
-            NODE_PATH:'node_modules:ceylon_modules:'+process.env.CEYLON_HOME+'/repo'
+            NODE_PATH:'./node_modules:./ceylon_modules:'+process.env.CEYLON_HOME+'/repo'
           },
           cwd: __dirname
         }
